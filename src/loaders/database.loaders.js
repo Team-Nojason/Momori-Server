@@ -1,7 +1,7 @@
 const { Config } = require("../configs/config.js");
 const { DBService } = require("../db/db-service");
 
-class DatabaseLoaders {
+class DatabaseLoader {
     static init (){
         DBService.init({
             host: Config.DB_HOST,
@@ -15,4 +15,4 @@ class DatabaseLoaders {
     }
 }
 
-module.exports = { DatabaseLoader: DatabaseLoaders };
+module.exports = { DatabaseLoader };

@@ -1,9 +1,7 @@
-const { ErrorStatusCodes } = require("../errorStatusCodes.utils");
 const { ErrorCodes } = require("../errorCodes.utils");
-const { Config } = require("../../configs/config");
 
 class DatabaseException extends Error {
-    constructor (code, message, status = 404) {
+    constructor (code, message, status = 500) {
         super(message);
         this.message = message;
         this.name = "Database Error";
@@ -13,12 +11,6 @@ class DatabaseException extends Error {
     }
 }
 
-class NotFoundException extends DatabaseException {
-    constructor (message){
-        super(ErrorCodes.NotFoundException, message);
-    }
-}
-
 module.exports = {
-    NotFoundException,
+    DatabaseException,
 };

@@ -5,7 +5,6 @@ const errorMiddleware = (err, req, res, next) => {
     let { message, code, error, status } = err;
 
     const headers = {
-        success: "0",
         error,
         code,
         message

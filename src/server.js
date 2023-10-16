@@ -14,7 +14,7 @@ startServer = async () => {
 
     const port = Number(Config.PORT);
 
-    await TasksLoader.init();
+    TasksLoader.init();
 
     app.listen(port, () => {
         console.log(`서버 열렸어용 ${port}`);
@@ -23,4 +23,4 @@ startServer = async () => {
 
 startServer().then(() => {});
 
-module.exports = startServer;
+// module.exports = startServer;

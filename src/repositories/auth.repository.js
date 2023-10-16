@@ -1,6 +1,5 @@
 const { Config } = require('../configs/config');
 const UserModel = require('../models/user.model');
-const { structureResponse } = require('../utils/common.utils');
 const {
     SignUpFailedException,
     NotFoundUserException,

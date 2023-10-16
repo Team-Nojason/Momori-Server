@@ -1,6 +1,7 @@
-exports.structureResponse = (body, success, message) => {
+exports.baseResponse = (data, code, message) => {
     return {
-        headers: {success, message},
-        body: body
+        code: code,
+        message: message,
+        data: data
     };
 };
