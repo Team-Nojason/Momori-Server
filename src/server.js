@@ -8,9 +8,9 @@ const { Config } = require('./configs/config.js');
 startServer = async () => {
     const app = ExpressLoader.init();
 
-    await DatabaseLoader.init();
-    await RoutesLoader.initRoutes(app, "v1");
-    await MiddlewareLoader.init(app);
+    DatabaseLoader.init();
+    RoutesLoader.initRoutes(app, "v1");
+    MiddlewareLoader.init(app);
 
     const port = Number(Config.PORT);
 

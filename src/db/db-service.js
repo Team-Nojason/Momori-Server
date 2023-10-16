@@ -1,5 +1,5 @@
 const mysql2 = require('mysql2');
-const { InternalServerException } = require('../utils/exceptions/api.exceptions');
+const {DatabaseException} = require("../utils/exceptions/database.exception");
 
 class DBService {
     init({host, user, port, password, database}) {
@@ -27,6 +27,7 @@ class DBService {
             };
             this.dbInstance.execute(sql, values, callback);
         }).catch((err) => {
+            console.log(err);
             return null;
         });
     }

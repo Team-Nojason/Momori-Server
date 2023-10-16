@@ -1,5 +1,3 @@
-const { ErrorCodes } = require("../errorCodes.utils");
-
 class DatabaseException extends Error {
     constructor (code, message, status = 500) {
         super(message);

@@ -1,4 +1,4 @@
-const userRouter = require('../routes/auth.routes.js');
+const userRouter = require('../routes/user.routes');
 
 class RoutesLoader {
     static initRoutes (app, version) {

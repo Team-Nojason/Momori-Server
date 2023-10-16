@@ -39,16 +39,5 @@ class UserRepository {
         return {message: 'delete success'};
     }
 
-    deleteByBjId = async (bjId) => {
-        const result = await UserModel.deleteByBjId(bjId);
-        if (!result) new NotFoundUserException();
-        return {message: 'delete success'};
-    }
-
-    deleteByNickName = async (nickName) => {
-        const result = await UserModel.deleteByNickName(nickName);
-        if (!result) new NotFoundUserException();
-        return {message: 'delete success'};
-    }
 }
 module.exports = new UserRepository();

@@ -43,17 +43,6 @@ class UserModel {
         return await DBService.query(sql, [nickName]);
     }
 
-    isExistNickNameOrBjId = async (nickName, bjId) => {
-        const sql = 'SELECT COUNT(*) AS count FROM user WHERE nickname = ? OR bj_id = ?';
-        const count = await DBService.query(sql, [nickName, bjId])
-        return (count[0]['count'] > 0);
-    }
-
-    isExistUser = async (nickName, pw) => {
-        const sql = 'SELECT COUNT(*) AS count FROM user WHERE nickname = ? AND pw = ?';
-        const count = await DBService.query(sql, [nickName, pw])
-        return (count[0]['count'] > 0);
-    }
 }
 
 module.exports = new UserModel;

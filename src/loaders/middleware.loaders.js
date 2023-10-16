@@ -1,10 +1,10 @@
-const { InvalidEndpointException } = require('../utils/exceptions/api.exceptions');
+const { ApiExceptions } = require('../utils/exceptions/api.exceptions');
 const {errorMiddleware} = require('../middleware/error.middleware');
 
 class MiddlewareLoader {
     static init (app){
         app.all('*', (req, res, next) => {
-            const err = new InvalidEndpointException();
+            const err = new ApiExceptions(0, 'invalid endpoint exception', 404);
             next(err);
         });
 

@@ -1,7 +1,3 @@
-const { Config } = require("../../configs/config");
-const { ErrorCodes } = require("../errorCodes.utils");
-const { ErrorStatusCodes } = require("../errorStatusCodes.utils");
-
 class ApiExceptions extends Error {
     constructor (code, message, status = 400) {
         super(message);
