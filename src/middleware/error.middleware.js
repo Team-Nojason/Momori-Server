@@ -9,7 +9,7 @@ const errorMiddleware = (err, req, res, next) => {
         code,
         message
     };
-    console.log(headers);
+    console.log(headers, status);
 
     res.status(status).send({headers, body: {}});
 }

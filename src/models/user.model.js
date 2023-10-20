@@ -1,48 +1,21 @@
 const { DBService } = require('../db/db-service');
 const { tables } = require('../utils/tableNames.utils');
+const BaseModel = require("./base.model");
 
-class UserModel {
+class UserModel extends BaseModel {
 
-    findAll = async () => {
-        let sql = `SELECT * FROM ${tables.User}`;
-        return await DBService.query(sql);
+    constructor(props) {
+        super(props);
+        this.tableName = tables.User;
     }
 
-    findById = async (id) => {
-        const sql = `SELECT * FROM ${tables.User} WHERE id = ?`;
-        return await DBService.query(sql, [id]);
+    insert = async (email, profile_url, nickname, platform_type, fcm_key) => {
+        console.log('user-model ', email, profile_url, nickname, platform_type, fcm_key);
+        const sql = `INSERT INTO ${this.tableName}
+                    (email, profile_url, nickname, platform_type, fcm_key)
+                    VALUES (?, ?, ?, ?, ?)`;
+        return await DBService.query(sql, [email, profile_url, nickname, platform_type, fcm_key]);
     }
-
-    findByNickName = async (nickName) => {
-        const sql = `SELECT * FROM ${tables.User} WHERE nickname = ?`
-        return await DBService.query(sql, [nickName]);
-    }
-
-    findByBjId = async (bjId) => {
-        const sql = `SELECT * FROM ${tables.User} WHERE bj_id = ?`;
-        return await DBService.query(sql, [bjId]);
-    }
-
-    save = async (nickName, pw, bjId, intro, goal)  => {
-        const sql = `INSERT INTO ${tables.User} (nickname, pw, bj_id, intro, goal) VALUES (?,?,?,?,?)`;
-        return await DBService.query(sql, [nickName, pw, bjId, intro, goal]);
-    }
-
-    deleteById = async (id) => {
-        const sql = `DELETE FROM ${tables.User} WHERE id = ?`;
-        return await DBService.query(sql, [id]);
-    }
-
-    deleteByBjId = async (bjId) => {
-        const sql = `DELETE FROM ${tables.User} WHERE bj_id = ?`;
-        return await DBService.query(sql, [bjId]);
-    }
-
-    deleteByNickName = async (nickName) => {
-        const sql = `DELETE FROM ${tables.User} WHERE nickname = ?`;
-        return await DBService.query(sql, [nickName]);
-    }
-
 }
 
-module.exports = new UserModel;
+module.exports = new UserModel();
