@@ -6,5 +6,6 @@ const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middlewar
 
 
 router.post('/', auth, awaitHandlerFactory(UserController.registerUser));
+router.post('/login', auth, awaitHandlerFactory(UserController.loginUser));
 
 module.exports = router;

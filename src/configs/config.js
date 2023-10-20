@@ -13,5 +13,6 @@ module.exports.Config = {
     DB_USER: process.env.DB_USER,
     DB_PASS: process.env.DB_PASS,
     DB_DATABASE: process.env.DB_DATABASE,
-    JWT_SECRET: process.env.JWT_SECRET
+    JWT_SECRET: process.env.JWT_SECRET,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID
 };

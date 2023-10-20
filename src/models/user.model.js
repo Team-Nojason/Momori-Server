@@ -15,7 +15,14 @@ class UserModel extends BaseModel {
                     (email, profile_url, nickname, platform_type, fcm_key)
                     VALUES (?, ?, ?, ?, ?)`;
         return await DBService.query(sql, [email, profile_url, nickname, platform_type, fcm_key]);
-    }
+    };
+
+    existByEmail = async (email) => {
+        const sql = `SELECT * FROM ${this.tableName} WHERE email = ?`;
+        const result = (await DBService.query(sql, [email])).length;
+        console.log(result);
+        return result > 0;
+    };
 }
 
 module.exports = new UserModel();

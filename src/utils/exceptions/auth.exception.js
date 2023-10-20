@@ -1,5 +1,5 @@
 class AuthException extends Error {
-    constructor (code, message, status = 403) {
+    constructor (message, status = 403, code = 0) {
         super(message);
         this.message = message;
         this.name = "Auth Error";

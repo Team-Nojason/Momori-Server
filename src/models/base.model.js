@@ -18,7 +18,12 @@ class BaseModel {
 
     deleteById = async (id) => {
         const sql = `DELETE FROM ${this.tableName} WHERE id = ?`;
-        return (await DBService.query(sql, id))[0];
+        return (await DBService.query(sql, [id]))[0];
+    }
+
+    existById = async (id) => {
+        const sql = `SELECT COUNT(*) FROM ${this.tableName} WHERE id = ?`;
+        return (await DBService.query(sql, [id])) > 0;
     }
 }
 
