@@ -5,12 +5,6 @@ const {Config} = require("../configs/config");
 const {makeRefreshToken, makeAccessToken} = require("../utils/jwt.util");
 
 class UserRepository {
-    insert = async (body) => {
-        console.log('user-repository-insert: ', body);
-        const {email, profile_url, nickname, platform_type, fcm_key} = body;
-        const result = await UserModel.insert(email, profile_url, nickname, platform_type, fcm_key);
-        console.log(result);
-    }
 
     login = async (body) => {
         console.log('user-repository-login: ', body);
