@@ -2,7 +2,7 @@ const UserModel = require("../models/user.model");
 const {AuthException} = require("../utils/exceptions/auth.exception");
 const {OAuth2Client} = require('google-auth-library');
 const {Config} = require("../configs/config");
-const {makeRefreshToken, makeAccessToken} = require("../utils/jwt.util");
+const {makeRefreshToken, makeAccessToken, decodePayload} = require("../utils/jwt.util");
 
 class UserRepository {
 
@@ -37,10 +37,35 @@ class UserRepository {
             email: email
         });
         return {
-            refreshToken: refreshToken,
-            accessToken: accessToken
+            refresh_token: refreshToken,
+            access_token: accessToken
         };
     };
+
+    refresh = async (body) => {
+        console.log('user-repository-refresh: ', body);
+
+        const {refresh_token} = body;
+
+        if (!refresh_token) {
+            throw new AuthException('TokenMissingException', 403);
+        }
+
+        const payload = await decodePayload(refresh_token);
+
+        if (!payload.email) {
+            throw new AuthException('NotFoundEmailInToken', 401);
+        }
+
+        const access_token = makeAccessToken({
+            email: payload.email
+        });
+
+        return {
+            refresh_token: refresh_token,
+            access_token: access_token
+        };
+    }
 }
 
 module.exports = new UserRepository();

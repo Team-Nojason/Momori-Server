@@ -8,6 +8,12 @@ class UserController {
         const result = await UserRepository.login(body);
         res.send(result);
     }
+
+    refresh = async (req, res) => {
+        const body = req.body;
+        const result = await UserRepository.refresh(body);
+        res.send(result)
+    }
 }
 
 module.exports = new UserController();
