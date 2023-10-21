@@ -9,6 +9,11 @@ class UserModel extends BaseModel {
         this.tableName = tables.User;
     }
 
+    findByEmail = async (email) => {
+        const sql = `SELECT * FROM ${this.tableName} WHERE email = ?`;
+        return (await DBService.query(sql, [email]))[0];
+    }
+
     insert = async (email, profile_url, nickname, platform_type, fcm_key) => {
         console.log('user-model ', email, profile_url, nickname, platform_type, fcm_key);
         const sql = `INSERT INTO ${this.tableName}
