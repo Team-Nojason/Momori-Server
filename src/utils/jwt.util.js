@@ -30,9 +30,7 @@ decodePayload = async (token) => {
     if (!token) {
         throw new AuthException('TokenMissingException', 403);
     }
-    console.log('3')
     return jwtUtil.verify(token, process.env.JWT_SECRET, (err) => {
-        console.log('4')
 
         if (err) {
             if (err.name === 'TokenExpiredError') {
@@ -44,7 +42,17 @@ decodePayload = async (token) => {
     });
 };
 
+getTokenFromHeader = async (header) => {
+    const authorization = header.authorization;
+    if (!authorization) return ""
+    return authorization.split(' ')[1]
+}
+
+getPayloadFromHeader = async (header) => {
+    const token = await getTokenFromHeader(header);
+    return await decodePayload(token);
+}
 
 
 
-module.exports = { makeRefreshToken, makeAccessToken, decodePayload };
+module.exports = { makeRefreshToken, makeAccessToken, decodePayload, getTokenFromHeader };

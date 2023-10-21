@@ -9,10 +9,16 @@ class UserController {
         res.send(result);
     }
 
+    joinUser = async (req, res) => {
+        const body = req.body;
+        const result = await UserRepository.join(body);
+        res.send(result);
+    }
+
     refresh = async (req, res) => {
         const body = req.body;
         const result = await UserRepository.refresh(body);
-        res.send(result)
+        res.send(result);
     }
 }
 
