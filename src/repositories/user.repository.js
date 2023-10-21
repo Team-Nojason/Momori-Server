@@ -22,9 +22,9 @@ class UserRepository {
             console.log(e);
             throw new AuthException('Invalid IdToken', 404);
         }
-
+        let payload;
         try {
-            const payload = ticket.getPayload();
+            payload = ticket.getPayload();
             console.log('user-repository: ', payload);
         } catch (e) {
             console.log(e);
