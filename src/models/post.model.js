@@ -10,10 +10,11 @@ class PostModel extends BaseModel {
     }
 
     insert = async (content) => {
-        const sql = `INSERT INTO ${this.tableName} (content) VALUES (?)`;
-        return await DBService.query(sql, [content]);
+        const sql = `INSERT INTO ${this.tableName} 
+                    (content)
+                    VALUES (?)`;
+        await DBService.query(sql, [content]);
     }
-
 }
 
 module.exports = new PostModel();

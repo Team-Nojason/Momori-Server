@@ -33,9 +33,9 @@ class UserRepository {
 
         // login
         const email = payload.email;
-
-        const isExistUser = await UserModel.existByEmailAndPlatformType(email);
+        const isExistUser = await UserModel.existByEmailAndPlatformType(email, platform_type);
         if (!isExistUser) {
+            console.log('not found user');
             throw new AuthException('Not Fount User', 404);
         }
 
@@ -103,6 +103,8 @@ class UserRepository {
         }
 
         const payload = await decodePayload(refresh_token);
+
+        console.log('user-repository-refresh-payload', payload)
 
         if (!payload.email) {
             throw new AuthException('NotFoundEmailInToken', 401);

@@ -8,18 +8,22 @@ auth = (req, res, next) => {
     if (!token) {
         throw new AuthException('TokenMissingException', 403);
     }
+    var isNotNext = true;
     jwt.verify(token, process.env.JWT_SECRET, (err) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
+                console.log('a')
                 throw new AuthException('TokenExpiredException', 401);
-
             }
+            console.log('b')
             throw new AuthException('TokenVerificationException', 403);
         } else {
-            next();
+            isNotNext = false;
+            return next();
         }
     });
-    next();
+    if (isNotNext)
+        return next();
 };
 
 module.exports = {auth};

@@ -4,6 +4,7 @@ const {DatabaseException} = require("../utils/exceptions/database.exception");
 class DBService {
     // instance 초기화
     init({host, user, port, password, database}) {
+
         this.dbInstance = mysql2.createConnection({
             host: host,
             user: user,
@@ -30,7 +31,10 @@ class DBService {
             };
             // 쿼리 보내기
             this.dbInstance.execute(sql, values, callback);
-        });
+        }).catch((e) => {
+            console.log('dberror', e);
+            throw new DatabaseException(e);
+        })
     };
 }
 

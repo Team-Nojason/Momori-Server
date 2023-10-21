@@ -1,8 +1,9 @@
-const { InternalServerException } = require('../utils/exceptions/api.exceptions');
+const { ApiExceptions} = require('../utils/exceptions/api.exceptions');
 
 const errorMiddleware = (err, req, res, next) => {
-    if (err.status === 500 || !err.message) new InternalServerException('Internal server error');
-    let { message, state, error, status } = err;
+    console.log('path -', req.path)
+    if (err.status === 500 || !err.message) new ApiExceptions('Internal server error', 500);
+    let { message, state, status } = err;
 
     const errorResponse = {
         status,
@@ -10,7 +11,7 @@ const errorMiddleware = (err, req, res, next) => {
         state
     };
 
-    console.log(errorResponse);
+    console.log('errorResponse', errorResponse);
 
     res.status(status).send(errorResponse);
 }

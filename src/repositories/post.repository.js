@@ -1,17 +1,17 @@
 const {AuthException} = require("../utils/exceptions/auth.exception");
-const {getTokenFromHeader} = require("../utils/jwt.util");
+const {getPayloadFromHeader} = require("../utils/jwt.util");
 const PostModel = require('../models/post.model')
 
 class PostRepository {
     addPost = async (body, header) => {
         const {content} = body;
-        const payload = await getTokenFromHeader(header);
+        const payload = await getPayloadFromHeader(header);
+        console.log('postrespoitory-addpost-payload-', payload)
         const email = payload.email;
 
-        console.log('addpost- ', email)
+        console.log('addpost -', email);
 
         await PostModel.insert(content);
-        return 'success - ' + email;
     }
 }
 
