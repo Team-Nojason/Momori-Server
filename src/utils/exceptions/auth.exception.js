@@ -4,7 +4,6 @@ class AuthException extends Error {
         this.message = message;
         this.name = "Auth Error";
         this.code = code;
-        this.error = this.constructor.name;
         this.status = status;
     }
 }

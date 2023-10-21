@@ -1,10 +1,9 @@
 class DatabaseException extends Error {
-    constructor (code, message, status = 500) {
+    constructor (message, status = 500, state) {
         super(message);
         this.message = message;
         this.name = "Database Error";
-        this.code = code;
-        this.error = this.constructor.name;
+        this.state = state;
         this.status = status;
     }
 }

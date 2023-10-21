@@ -30,17 +30,18 @@ decodePayload = async (token) => {
     if (!token) {
         throw new AuthException('TokenMissingException', 403);
     }
-    let payload;
-    try {
-        payload = await jwtUtil.verify(token, process.env.JWT_SECRET);
-    } catch (err) {
-        if (err.name === 'TokenExpiredError') {
-            throw new AuthException('TokenExpiredException', 401);
-        } else {
+    console.log('3')
+    return jwtUtil.verify(token, process.env.JWT_SECRET, (err) => {
+        console.log('4')
+
+        if (err) {
+            if (err.name === 'TokenExpiredError') {
+                throw new AuthException('TokenExpiredException', 401);
+
+            }
             throw new AuthException('TokenVerificationException', 403);
         }
-    }
-    return payload;
+    });
 };
 
 

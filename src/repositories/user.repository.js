@@ -12,18 +12,29 @@ class UserRepository {
 
         // valid id-token
         const client = new OAuth2Client();
-        const ticket = await client.verifyIdToken({
-            idToken: id_token,
-            audience: Config.GOOGLE_CLIENT_ID
-        });
-        const payload = ticket.getPayload();
-        console.log('user-repository: ', payload);
+        let ticket
+        try {
+            ticket = await client.verifyIdToken({
+                idToken: id_token,
+                audience: Config.GOOGLE_CLIENT_ID
+            });
+        } catch (e) {
+            console.log(e);
+            throw new AuthException('Invalid IdToken', 404);
+        }
+
+        try {
+            const payload = ticket.getPayload();
+            console.log('user-repository: ', payload);
+        } catch (e) {
+            console.log(e);
+            throw new AuthException('Not Found Payload in Token');
+        }
 
         // login
         const email = payload.email;
 
         const isExistUser = await UserModel.existByEmail(email);
-        console.log('exist user??', isExistUser)
         if (!isExistUser) {
             await UserModel.insert(email, profile_url, nickname, platform_type, fcm_key);
         }
@@ -51,7 +62,10 @@ class UserRepository {
             throw new AuthException('TokenMissingException', 403);
         }
 
+        console.log('1')
+
         const payload = await decodePayload(refresh_token);
+        console.log('2')
 
         if (!payload.email) {
             throw new AuthException('NotFoundEmailInToken', 401);

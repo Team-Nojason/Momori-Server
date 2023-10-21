@@ -2,16 +2,17 @@ const { InternalServerException } = require('../utils/exceptions/api.exceptions'
 
 const errorMiddleware = (err, req, res, next) => {
     if (err.status === 500 || !err.message) new InternalServerException('Internal server error');
-    let { message, code, error, status } = err;
+    let { message, state, error, status } = err;
 
-    const headers = {
-        error,
-        code,
-        message
+    const errorResponse = {
+        status,
+        message,
+        state
     };
-    console.log(headers, status);
 
-    res.status(status).send({headers, body: {}});
+    console.log(errorResponse);
+
+    res.status(status).send(errorResponse);
 }
 
 module.exports = {errorMiddleware};

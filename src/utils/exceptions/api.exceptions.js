@@ -1,10 +1,9 @@
 class ApiExceptions extends Error {
-    constructor (code, message, status = 400) {
+    constructor (message, status = 400, state) {
         super(message);
         this.message = message;
         this.name = "Api Error";
-        this.code = code;
-        this.error = this.constructor.name;
+        this.state = state;
         this.status = status;
     }
 }
