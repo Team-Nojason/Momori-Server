@@ -16,7 +16,9 @@ class PostModel extends BaseModel {
                     VALUES (?, ?, ?, ?, ?, ?)`;
         const id = (await DBService.query(sql, [content, created_at, latitude, longitude, is_public, user_id])).insertId;
         const selectSql = `SELECT * FROM ${this.tableName} WHERE post_id = ?`;
-        return (await DBService.query(selectSql, [id]))[0];
+        const createdPost = (await DBService.query(selectSql, [id]))[0]
+        createdPost.is_public = !!(createdPost.is_public)
+        return createdPost;
     }
 }
 
