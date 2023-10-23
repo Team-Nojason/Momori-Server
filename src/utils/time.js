@@ -1,12 +1,9 @@
 
 
-dateToDateTime = (date) => {
-    return date.toISOString().slice(0, 19).replace('T', ' ');
-}
-
-
 getCurrentTime = () => {
-    return dateToDateTime(new Date());
+    const time = new Date().toLocaleString("sv", {timeZone: "Asia/Seoul"}).replace(/\s/g, "T");
+    console.log(time);
+    return time;
 }
 
-module.exports = {dateToDateTime, getCurrentTime}
+module.exports = {getCurrentTime};

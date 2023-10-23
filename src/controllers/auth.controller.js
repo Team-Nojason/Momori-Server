@@ -1,21 +1,25 @@
-const UserRepository = require('../repositories/user.repository');
+const UserRepository = require("../repositories/user.repository");
 
-class UserController {
+class AuthController {
 
-
-    loginUser = async (req, res) => {
+    login = async (req, res) => {
         console.log('loginuser', req.path)
         const body = req.body;
         const result = await UserRepository.login(body);
         res.send(result);
     }
 
-    joinUser = async (req, res) => {
+    join = async (req, res) => {
+
         console.log('join')
 
         const body = req.body;
         const result = await UserRepository.join(body);
         res.send(result);
+    }
+
+    check = async (req, res) => {
+
     }
 
     refresh = async (req, res) => {
@@ -26,9 +30,6 @@ class UserController {
         res.send(result);
     }
 
-    a = async (req, res) => {
-        res.send('test')
-    }
 }
 
-module.exports = new UserController();
+module.exports = new AuthController();
