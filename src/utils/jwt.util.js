@@ -35,7 +35,6 @@ decodePayload = async (token) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
                 throw new AuthException('TokenExpiredException', 401);
-
             }
             throw new AuthException('TokenVerificationException', 403);
         }
@@ -44,8 +43,8 @@ decodePayload = async (token) => {
 
 getTokenFromHeader = async (header) => {
     const authorization = header.authorization;
-    if (!authorization) return ""
-    return authorization.split(' ')[1]
+    if (!authorization) return "";
+    return authorization.split(' ')[1];
 }
 
 getPayloadFromHeader = async (header) => {

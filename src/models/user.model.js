@@ -24,9 +24,8 @@ class UserModel extends BaseModel {
 
     existByEmailAndPlatformType = async (email, platform_type) => {
         const sql = `SELECT * FROM ${this.tableName} WHERE email = ? AND platform_type = ?`;
-        const result = (await DBService.query(sql, [email, platform_type])).length;
-        console.log(result);
-        return result > 0;
+        const user = (await DBService.query(sql, [email, platform_type])).length;
+        return user > 0;
     };
 }
 
