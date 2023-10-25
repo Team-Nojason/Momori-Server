@@ -14,6 +14,8 @@ authRouter.post('/join', awaitHandlerFactory(AuthController.join));
 
 // post
 postRouter.post('/', auth, awaitHandlerFactory(PostController.addPost));
+postRouter.get('/user', auth, awaitHandlerFactory(PostController.getPostByUser));
+postRouter.get('/:post_id', auth, awaitHandlerFactory(PostController.getPost));
 
 
 module.exports = {authRouter, postRouter};

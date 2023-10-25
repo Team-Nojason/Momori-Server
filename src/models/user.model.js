@@ -9,6 +9,11 @@ class UserModel extends BaseModel {
         this.tableName = tables.User;
     }
 
+    findById = async (id) => {
+        const sql = `SELECT * FROM ${this.tableName} WHERE id = ?`;
+        return (await DBService.query(sql, [id]))[0];
+    }
+
     findByEmail = async (email) => {
         const sql = `SELECT * FROM ${this.tableName} WHERE email = ?`;
         return (await DBService.query(sql, [email]))[0];

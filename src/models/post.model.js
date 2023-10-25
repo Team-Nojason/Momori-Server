@@ -1,6 +1,7 @@
 const { DBService } = require('../db/db-service');
 const { tables } = require('../utils/tableNames.utils');
 const BaseModel = require("./base.model");
+const {getCurrentTime} = require("../utils/time");
 
 class PostModel extends BaseModel {
 
@@ -9,16 +10,25 @@ class PostModel extends BaseModel {
         this.tableName = tables.Post;
     }
 
-    insert = async (content, created_at, latitude, longitude, is_public, user_id) => {
-        console.log(content, created_at, latitude, longitude, is_public, user_id)
+    insert = async (content, latitude, longitude, is_public, user_id) => {
         const sql = `INSERT INTO ${this.tableName}
-                    (content, created_at, latitude, longitude, is_public, user_id)
+                    (content, created_at, updated_at, latitude, longitude, is_public, user_id)
                     VALUES (?, ?, ?, ?, ?, ?)`;
-        const id = (await DBService.query(sql, [content, created_at, latitude, longitude, is_public, user_id])).insertId;
+        const id = (await DBService.query(sql, [content, getCurrentTime(), getCurrentTime(), latitude, longitude, is_public, user_id])).insertId;
         const selectSql = `SELECT * FROM ${this.tableName} WHERE post_id = ?`;
         const createdPost = (await DBService.query(selectSql, [id]))[0]
-        createdPost.is_public = !!(createdPost.is_public)
+        createdPost.is_public = !!(createdPost.is_public);
         return createdPost;
+    }
+
+    findById = async (id) => {
+        const sql = `SELECT * FROM ${this.tableName} WHERE id = ?`;
+        return (await DBService.query(sql, [id]))[0];
+    }
+
+    findByUserId = async (user_id) => {
+        const sql = `SELECT * FROM ${this.tableName} WHERE user_id = ?`;
+        return await DBService.query(sql, [user_id]);
     }
 }
 
