@@ -4,7 +4,7 @@ const {log} = require("../middleware/log.middleware");
 class RoutesLoader {
     static initRoutes (app, version) {
         app.use('/*', log);
-        app.use(`/user`, authRouter);
+        app.use(`/auth`, authRouter);
         app.use(`/post`, postRouter);
     }
 }

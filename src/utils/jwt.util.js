@@ -30,7 +30,7 @@ decodePayload = async (token) => {
     if (!token) {
         throw new AuthException('TokenMissingException', 403);
     }
-    return jwtUtil.decode(token, process.env.JWT_SECRET, (err) => {
+    return await jwtUtil.decode(token, process.env.JWT_SECRET, (err) => {
 
         if (err) {
             if (err.name === 'TokenExpiredError') {

@@ -5,7 +5,7 @@ auth = (req, res, next) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
 
-    console.log(authHeader);
+    console.log('AUTH -', authHeader);
 
     if (!token) {
         throw new AuthException('TokenMissingException', 403);
@@ -14,10 +14,8 @@ auth = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SECRET, (err) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
-                console.log('a')
                 throw new AuthException('TokenExpiredException', 401);
             }
-            console.log('b')
             throw new AuthException('TokenVerificationException', 403);
         } else {
             isNotNext = false;
