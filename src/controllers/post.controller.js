@@ -14,7 +14,7 @@ class PostController {
     }
 
     getPostByUser = async (req, res) => {
-        const result = await PostRepository.getPostByUser(req.params.user_id);
+        const result = await PostRepository.getPostByUser(req.params.user_id, req.headers);
         console.log(result);
         res.status(200).send(result);
     }

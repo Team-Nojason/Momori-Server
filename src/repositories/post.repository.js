@@ -21,7 +21,12 @@ class PostRepository {
         return await PostModel.findById(post_id);
     }
 
-    getPostByUser = async (user_id) => {
+    getPostByUser = async (user_id, header) => {
+        if (!user_id) {
+            const {email, platform_type} = await getPayloadFromHeader(header);
+            const user = await UserModel.findByEmailAndPlatformType(email, platform_type);
+            return await PostModel.findByUserId(user.user_id);
+        }
         return await PostModel.findByUserId(user_id);
     }
 

@@ -14,7 +14,7 @@ authRouter.post('/join', awaitHandlerFactory(AuthController.join));
 
 // post
 postRouter.post('/', auth, awaitHandlerFactory(PostController.addPost));
-postRouter.get('/user', auth, awaitHandlerFactory(PostController.getPostByUser));
+postRouter.get('/user/:user_id', auth, awaitHandlerFactory(PostController.getPostByUser));
 postRouter.get('/:post_id', auth, awaitHandlerFactory(PostController.getPost));
 postRouter.delete('/:post_id', auth, awaitHandlerFactory(PostController.delete));
 postRouter.put('/', auth, awaitHandlerFactory(PostController.editPost));
