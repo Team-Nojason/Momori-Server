@@ -14,9 +14,9 @@ class UserModel extends BaseModel {
         return (await DBService.query(sql, [id]))[0];
     }
 
-    findByEmail = async (email) => {
-        const sql = `SELECT * FROM ${this.tableName} WHERE email = ?`;
-        return (await DBService.query(sql, [email]))[0];
+    findByEmailAndPlatformType = async (email, platform_type) => {
+        const sql = `SELECT * FROM ${this.tableName} WHERE email = ? AND platform_type = ?`;
+        return (await DBService.query(sql, [email, platform_type]))[0];
     }
 
     insert = async (email, profile_url, nickname, platform_type, fcm_key) => {

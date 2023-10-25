@@ -9,8 +9,8 @@ class PostRepository {
     addPost = async (body, header) => {
         const {content, latitude, longitude, is_public} = body;
         const payload = await getPayloadFromHeader(header);
-        const email = payload.email;
-        const user = await UserModel.findByEmail(email);
+        const {email, platform_type} = payload;
+        const user = await UserModel.findByEmailAndPlatformType(email, platform_type);
         const {user_id} = user;
         const createdPost = await PostModel.insert(content, latitude, longitude, is_public, user_id);
         console.log('postRepository - ', createdPost);
@@ -23,16 +23,16 @@ class PostRepository {
 
     getPostByUser = async (header) => {
         const payload = await getPayloadFromHeader(header);
-        const {email} = payload.email;
-        const user = await UserModel.findByEmail(email);
+        const {email, platform_type} = payload;
+        const user = await UserModel.findByEmailAndPlatformType(email, platform_type);
         const {user_id} = user;
         return await PostModel.findByUserId(user_id);
     }
 
     deleteById = async (post_id, header) => {
         const payload = await getPayloadFromHeader(header);
-        const {email} = payload;
-        const user = await UserModel.findByEmail(email);
+        const {email, platform_type} = payload;
+        const user = await UserModel.findByEmailAndPlatformType(email, platform_type);
         const post = await PostModel.findById(post_id);
         if (user.user_id !== post.user_id) {
             throw new ApiExceptions('this post is not yours', 400);
@@ -44,8 +44,8 @@ class PostRepository {
     editPost = async (body, header) => {
         const {post_id, content, latitude, longitude, is_public, user_id} = body;
         const payload = await getPayloadFromHeader(header);
-        const {email} = payload;
-        const user = await UserModel.findByEmail(email);
+        const {email, platform_type} = payload;
+        const user = await UserModel.findByEmailAndPlatformType(email, platform_type);
         if (user.user_id !== user_id) {
             throw new ApiExceptions('this post is not yours', 400);
         }

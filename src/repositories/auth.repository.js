@@ -55,8 +55,7 @@ class AuthRepository {
 
     check = async (headers) => {
         const payload = await getPayloadFromHeader(headers);
-        const email = payload.email;
-        const platform_type = payload.platform_type;
+        const {email, platform_type} = payload;
         console.log(email, platform_type);
         if (!email || !platform_type) throw new AuthException('Invalid Token', 401);
         const isExistUser = await UserModel.existByEmailAndPlatformType(email, platform_type);
