@@ -30,6 +30,11 @@ class PostModel extends BaseModel {
         const sql = `SELECT * FROM ${this.tableName} WHERE user_id = ?`;
         return await DBService.query(sql, [user_id]);
     }
+
+    deleteById = async (post_id) => {
+        const sql = `DELETE FROM ${this.tableName} WHERE post_id = ?`;
+        return await DBService.query(sql, [post_id]);
+    }
 }
 
 module.exports = new PostModel();

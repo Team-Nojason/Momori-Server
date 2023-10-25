@@ -18,6 +18,12 @@ class PostController {
         console.log(result);
         res.status(200).send(result);
     }
+
+    delete = async (req, res) => {
+        const result = await PostRepository.deleteById(req.params.post_id);
+        console.log(result);
+        res.status(200).send(result);
+    }
 }
 
 module.exports = new PostController();

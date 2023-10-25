@@ -27,6 +27,11 @@ class PostRepository {
         const {user_id} = user;
         return await PostModel.findByUserId(user_id);
     }
+
+    deleteById = async (post_id) => {
+        await PostModel.deleteById(post_id);
+        return 'delete success';
+    }
 }
 
 module.exports = new PostRepository();

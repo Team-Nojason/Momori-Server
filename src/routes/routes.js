@@ -16,6 +16,7 @@ authRouter.post('/join', awaitHandlerFactory(AuthController.join));
 postRouter.post('/', auth, awaitHandlerFactory(PostController.addPost));
 postRouter.get('/user', auth, awaitHandlerFactory(PostController.getPostByUser));
 postRouter.get('/:post_id', auth, awaitHandlerFactory(PostController.getPost));
+postRouter.delete('/:post_id', auth, awaitHandlerFactory(PostController.delete));
 
 
 module.exports = {authRouter, postRouter};
