@@ -9,9 +9,9 @@ class PostRepository {
         const {content, latitude, longitude, is_public} = body;
         const payload = await getPayloadFromHeader(header);
         const email = payload.email;
-
         const user = await UserModel.findByEmail(email);
-        const createdPost = await PostModel.insert(content, latitude, longitude, is_public, user.user_id);
+        const {user_id} = user;
+        const createdPost = await PostModel.insert(content, latitude, longitude, is_public, user_id);
         console.log('postRepository - ', createdPost);
         return createdPost;
     }
@@ -31,6 +31,11 @@ class PostRepository {
     deleteById = async (post_id) => {
         await PostModel.deleteById(post_id);
         return 'delete success';
+    }
+
+    editPost = async ( body) => {
+        const {post_id, content, latitude, longitude, is_public, user_id} = body;
+        return await PostModel.update(post_id, content, latitude, longitude, is_public, user_id);
     }
 }
 

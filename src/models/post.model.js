@@ -35,6 +35,21 @@ class PostModel extends BaseModel {
         const sql = `DELETE FROM ${this.tableName} WHERE post_id = ?`;
         return await DBService.query(sql, [post_id]);
     }
+
+    update = async (post_id, content, latitude, longitude, is_public, user_id) => {
+        const sql = `UPDATE ${this.tableName}
+                    SET
+                        content = ?,
+                        latitude = ?,
+                        longitude = ?,
+                        updated_at = ?,
+                        is_public = ?,
+                        user_id = ?
+                    WHERE post_id = ?`;
+        await DBService.query(sql, [content, latitude, longitude, getCurrentTime(), is_public, user_id, post_id]);
+        const selectSql = `SELECT * FROM ${this.tableName} WHERE post_id = ?`;
+        return await DBService.query(selectSql, [post_id]);
+    }
 }
 
 module.exports = new PostModel();

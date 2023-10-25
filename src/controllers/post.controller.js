@@ -20,7 +20,15 @@ class PostController {
     }
 
     delete = async (req, res) => {
+        const {latitude, longitude} = req.query;
+        console.log(latitude, longtitude);
         const result = await PostRepository.deleteById(req.params.post_id);
+        console.log(result);
+        res.status(200).send(result);
+    }
+
+    editPost = async (req, res) => {
+        const result = await PostRepository.editPost(req.body);
         console.log(result);
         res.status(200).send(result);
     }
