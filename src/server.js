@@ -4,6 +4,7 @@ const { RoutesLoader } = require('./loaders/routes.loaders');
 const { TasksLoader } = require('./loaders/tasks.loaders');
 const { MiddlewareLoader } = require('./loaders/middleware.loaders')
 const { Config } = require('./configs/config.js');
+const CommentModel = require('./models/comment.model');
 
 startServer = async () => {
     const app = ExpressLoader.init();
@@ -19,7 +20,7 @@ startServer = async () => {
     app.listen(port, () => {
         console.log(`서버 열렸어용 ${port}`);
     });
-}
+}   
 
 startServer().then(() => {});
 

@@ -1,4 +1,6 @@
 exports.tables = {
     User: 'user',
-    Post: 'post'
+    Post: 'post',
+    Comment: 'comment',
+    Great: 'great'
 };
