@@ -21,9 +21,12 @@ class CommentModel extends BaseModel {
         const sql = `INSERT INTO ${this.tableName} (comment, created_at, post_id, user_id) VALUES (?, ?, ?, ?)`;
         const created = await DBService.query(sql, [comment, getCurrentTime(), post_id, user_id]);
         console.log(created);
-        const selectSql = `SELECT * FROM ${this.tableName} WHERE post_id = ?`;
-        // return await DBService.query();
     };
+
+    delete = async (comment_id) => {
+        const sql = `DELETE FROM ${this.tableName} WHERE comment_id = ?`;
+        await DBService.query(sql, [comment_id]);
+    }
 }
 
 module.exports = new CommentModel();

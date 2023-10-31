@@ -19,22 +19,22 @@ class PostModel extends BaseModel {
         const createdPost = (await DBService.query(selectSql, [id]))[0]
         createdPost.is_public = !!(createdPost.is_public);
         return createdPost;
-    }
+    };
 
     findById = async (id) => {
         const sql = `SELECT * FROM ${this.tableName} WHERE id = ?`;
         return (await DBService.query(sql, [id]))[0];
-    }
+    };
 
     findByUserId = async (user_id) => {
         const sql = `SELECT * FROM ${this.tableName} WHERE user_id = ?`;
         return await DBService.query(sql, [user_id]);
-    }
+    };
 
     deleteById = async (post_id) => {
         const sql = `DELETE FROM ${this.tableName} WHERE post_id = ?`;
         return await DBService.query(sql, [post_id]);
-    }
+    };
 
     update = async (post_id, content, latitude, longitude, is_public, user_id) => {
         const sql = `UPDATE ${this.tableName}
@@ -49,7 +49,7 @@ class PostModel extends BaseModel {
         await DBService.query(sql, [content, latitude, longitude, getCurrentTime(), is_public, user_id, post_id]);
         const selectSql = `SELECT * FROM ${this.tableName} WHERE post_id = ?`;
         return await DBService.query(selectSql, [post_id]);
-    }
+    };
 }
 
 module.exports = new PostModel();
