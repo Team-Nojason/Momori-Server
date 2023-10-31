@@ -19,6 +19,12 @@ class PostController {
         res.status(200).send(result);
     }
 
+    getPostByLocation = async (req, res) => {
+        const {latitude, longitude} = req.params;
+        const result = await PostRepository.getPostByLocation(req.headers, latitude, longitude);
+        res.status(200).send(result);
+    }
+
     delete = async (req, res) => {
         const {latitude, longitude} = req.query;
         console.log(latitude, longitude);

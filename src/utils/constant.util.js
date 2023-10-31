@@ -1,1 +1,1 @@
-export const DISTANCE = 3;
+export const DISTANCE = 2.5;

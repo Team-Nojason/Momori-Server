@@ -16,22 +16,23 @@ const PostController = require("../controllers/post.controller");
 postRouter.post('/', auth, awaitHandlerFactory(PostController.addPost));
 postRouter.get('/user/:user_id', auth, awaitHandlerFactory(PostController.getPostByUser));
 postRouter.get('/:post_id', auth, awaitHandlerFactory(PostController.getPost));
+postRouter.get('/location', auth, awaitHandlerFactory(PostController.getPostByLocation));
 postRouter.delete('/:post_id', auth, awaitHandlerFactory(PostController.delete));
 postRouter.put('/', auth, awaitHandlerFactory(PostController.editPost));
 
 // comment
 const commentRouter = express.Router();
 const CommentController = require('../controllers/comment.controller');
-commentRouter.get('/comment/post/:post_id', auth, awaitHandlerFactory(CommentController.getComment));
-commentRouter.post('/comment/post/:post_id', auth, awaitHandlerFactory(CommentController.addComment));
-commentRouter.delete('/comment/:comment_id', auth, awaitHandlerFactory(CommentController.removeComment));
+commentRouter.get('/post/:post_id', auth, awaitHandlerFactory(CommentController.getComment));
+commentRouter.post('/post/:post_id', auth, awaitHandlerFactory(CommentController.addComment));
+commentRouter.delete('/:comment_id', auth, awaitHandlerFactory(CommentController.removeComment));
 
 // great
 const greatRouter = express.Router();
 const GreatController = require('../controllers/great.controller');
-greatRouter.get('/great/:post_id', auth, awaitHandlerFactory(GreatController.getComment));
-greatRouter.post('/great/:post_id', auth, awaitHandlerFactory(GreatController.addComment));
-greatRouter.delete('/great/:post_id', auth, awaitHandlerFactory(GreatController.removeComment));
+greatRouter.get('t/:post_id', auth, awaitHandlerFactory(GreatController.getComment));
+greatRouter.post('/:post_id', auth, awaitHandlerFactory(GreatController.addComment));
+greatRouter.delete('/:post_id', auth, awaitHandlerFactory(GreatController.removeComment));
 
 
-module.exports = {authRouter, postRouter};
+module.exports = {authRouter, postRouter, commentRouter, greatRouter};

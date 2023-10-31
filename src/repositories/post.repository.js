@@ -4,6 +4,8 @@ const PostModel = require('../models/post.model')
 const UserModel = require('../models/user.model')
 const {getCurrentTime} = require("../utils/time");
 const {ApiExceptions} = require("../utils/exceptions/api.exceptions");
+const {DISTANCE} = require("../utils/constant.util");
+const distance = require("../utils/location.util");
 
 class PostRepository {
     addPost = async (body, header) => {
@@ -28,6 +30,19 @@ class PostRepository {
             return await PostModel.findByUserId(user.user_id);
         }
         return await PostModel.findByUserId(user_id);
+    }
+
+    getPostByLocation = async (header, latitude, longitude) => {
+        const payload = await getPayloadFromHeader(header);
+        const {email, platform_type} = payload;
+        const user = await UserModel.findByEmailAndPlatformType(email, platform_type);
+        const allPost = await PostModel.findAll();
+        const filteredPosts = allPost
+            .filter((post) => {
+                (post.user_id == user.user_id || post.is_public) && distance(post.latitude, post.longitude, latitude, longitude) <= DISTANCE;
+            });
+
+        return filteredPosts;
     }
 
     deleteById = async (post_id, header) => {
