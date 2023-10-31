@@ -41,3 +41,5 @@ class GreatRepository {
         }
     }
 }
+
+module.exports = new GreatRepository();

@@ -26,4 +26,12 @@ commentRouter.get('/comment/post/:post_id', auth, awaitHandlerFactory(CommentCon
 commentRouter.post('/comment/post/:post_id', auth, awaitHandlerFactory(CommentController.addComment));
 commentRouter.delete('/comment/:comment_id', auth, awaitHandlerFactory(CommentController.removeComment));
 
+// great
+const greatRouter = express.Router();
+const GreatController = require('../controllers/great.controller');
+greatRouter.get('/great/:post_id', auth, awaitHandlerFactory(GreatController.getComment));
+greatRouter.post('/great/:post_id', auth, awaitHandlerFactory(GreatController.addComment));
+greatRouter.delete('/great/:post_id', auth, awaitHandlerFactory(GreatController.removeComment));
+
+
 module.exports = {authRouter, postRouter};
