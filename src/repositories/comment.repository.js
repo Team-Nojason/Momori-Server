@@ -9,15 +9,15 @@ class CommentRepository {
         return comments;
     }
 
-    addComment = async (header, body) => {
+    addComment = async (header, body, postId) => {
         const payload = await getPayloadFromHeader(header);
         const {email, platform_type} = payload;
         const user = await UserModel.findByEmailAndPlatformType(email, platform_type);
 
         const {user_id} = user;
-        const {comment, post_id} = body;
+        const {comment} = body;
 
-        await CommentModel.insert(comment, post_id, user_id);
+        await CommentModel.insert(comment, postId, user_id);
 
         return 'add success';
     }
@@ -38,3 +38,5 @@ class CommentRepository {
         return 'remove success';
     }
 }
+
+module.exports = new CommentRepository();
